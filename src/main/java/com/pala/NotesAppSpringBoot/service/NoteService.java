@@ -54,15 +54,19 @@ public class NoteService {
     }
 
     public NoteDTO archive(Long id) {
-        return new NoteDTO();
+        return setArchived(id,true);
     }
 
     public NoteDTO unarchive(Long id) {
-        return new NoteDTO();
+        return setArchived(id,false);
     }
 
-    public NoteDTO getArchived() {
-        return new NoteDTO();
+    public List<NoteDTO> getArchived() {
+        List<Note> archivedNotes = noteRepository.findNotesByIsArchived(true);
+        return archivedNotes
+                .stream()
+                .map(archivedNote -> modelMapper.map(archivedNote, NoteDTO.class))
+                .toList();
     }
 
     private List<NoteDTO> getNoteDTOListFrom(List<Note> noteList) {
@@ -74,5 +78,15 @@ public class NoteService {
         });
 
         return notes;
+    }
+
+    private NoteDTO setArchived(Long id, Boolean isArchived) {
+        Optional<Note> _storedNote = noteRepository.findById(id);
+        if(_storedNote.isEmpty()) {
+            throw new RuntimeException("Note not found");
+        }
+        Note storedNote = _storedNote.get();
+        storedNote.setArchived(isArchived);
+        return modelMapper.map(storedNote, NoteDTO.class);
     }
 }

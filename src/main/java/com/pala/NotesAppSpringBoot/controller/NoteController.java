@@ -57,8 +57,8 @@ public class NoteController {
     }
 
     @GetMapping("/archived")
-    public ResponseEntity<NoteDTO> archived() {
-        NoteDTO response = noteService.getArchived();
+    public ResponseEntity<List<NoteDTO>> archived() {
+        List<NoteDTO> response = noteService.getArchived();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
