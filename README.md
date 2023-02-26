@@ -6,13 +6,18 @@
 
 <br>
 
+
 ### *GET ALL NOTES*
 
-`GET /api/notes/get`
 
-Example Response:
+`GET /api/notes/get` <br>
+
+
+
+Example Response: <br>
 
 <code>
+
     [
         {
             "id": 1,
@@ -33,6 +38,7 @@ Example Response:
             "archived": true
         }
     ]
+
 </code>
 
 
@@ -41,26 +47,32 @@ Example Response:
 
 ### *CREATE A NOTE*
 
+
 `POST /api/notes/create` <br>
 
 Request JSON: <br>
 
 <code>
-{
-    "title": "Note 5",
-    "content": "Lorem Ipsum"
-}
+
+    {
+        "title": "Note 5",
+        "content": "Lorem Ipsum"
+    }
+
 </code>
+
 
 Example Response: <br>
 
 <code>
-{
-    "id": 5,
-    "title": "Note 5",
-    "content": "Lorem Ipsum",
-    "archived": false
-}
+
+    {
+        "id": 5,
+        "title": "Note 5",
+        "content": "Lorem Ipsum",
+        "archived": false
+    }
+
 </code>
 
 
@@ -69,25 +81,31 @@ Example Response: <br>
 
 ### *EDIT A NOTE BY ID*
 
-`PATCH /api/notes/edit/{id}`
+
+`PATCH /api/notes/edit/{id}` <br>
 
 Request JSON: <br>
 
 <code>
-{
-    "title": "Note 2 (UPDATED)"
-}
+
+    {
+        "title": "Note 2 (UPDATED)"
+    }
+
 </code>
 
-Example response: <br>
+
+Example Response: <br>
 
 <code>
-{
-    "id": 2,
-    "title": "Note 2 (UPDATED)",
-    "content": "Pepe",
-    "archived": false
-}
+
+    {
+        "id": 2,
+        "title": "Note 2 (UPDATED)",
+        "content": "Pepe",
+        "archived": false
+    }
+
 </code>
 
 
@@ -96,11 +114,18 @@ Example response: <br>
 
 ### *DELETE A NOTE BY ID*
 
-`DELETE /api/notes/delete/{id}`
 
-Example Response:
+`DELETE /api/notes/delete/{id}` <br>
 
-`Note deleted successfully!`
+
+
+Example Response: <br>
+
+<code>
+
+    Note deleted successfully!
+
+</code>
 
 
 ---
@@ -108,17 +133,22 @@ Example Response:
 
 ### *ARCHIVE A NOTE BY ID*
 
-`PATCH /api/notes/archive/{id}`
 
-Example Response:
+`PATCH /api/notes/archive/{id}` <br>
+
+
+
+Example Response: <br>
 
 <code>
-{
-    "id": 3,
-    "title": "Note 3",
-    "content": "AAAAAAAAAAAAAAAAAA",
-    "archived": true
-}
+
+    {
+        "id": 3,
+        "title": "Note 3",
+        "content": "AAAAAAAAAAAAAAAAAA",
+        "archived": true
+    }
+
 </code>
 
 
@@ -127,17 +157,22 @@ Example Response:
 
 ### *UNARCHIVE A NOTE BY ID*
 
-`PATCH /api/notes/unarchive/{id}`
 
-Example Response:
+`PATCH /api/notes/unarchive/{id}` <br>
+
+
+
+Example Response: <br>
 
 <code>
-{
-    "id": 3,
-    "title": "Note 3",
-    "content": "AAAAAAAAAAAAAAAAAA",
-    "archived": false
-}
+
+    {
+        "id": 3,
+        "title": "Note 3",
+        "content": "AAAAAAAAAAAAAAAAAA",
+        "archived": false
+    }
+
 </code>
 
 
@@ -146,19 +181,24 @@ Example Response:
 
 ### *GET ARCHIVED NOTES*
 
-`GET /api/notes/archived`
 
-Example Response:
+`GET /api/notes/archived` <br>
+
+
+
+Example Response: <br>
 
 <code>
-[
-    {
-        "id": 3,
-        "title": "Note 3",
-        "content": "AAAAAAAAAAAAAAAAAA",
-        "archived": true
-    }
-]
+
+    [
+        {
+            "id": 3,
+            "title": "Note 3",
+            "content": "AAAAAAAAAAAAAAAAAA",
+            "archived": true
+        }
+    ]
+
 </code>
 
 
