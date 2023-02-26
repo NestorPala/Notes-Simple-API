@@ -28,7 +28,7 @@ public class NoteController {
 
     @PostMapping("/create")
     public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO note) {
-        NoteDTO response = noteService.create();
+        NoteDTO response = noteService.create(note);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

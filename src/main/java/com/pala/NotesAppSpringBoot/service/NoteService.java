@@ -19,18 +19,12 @@ public class NoteService {
 
     public List<NoteDTO> getAll() {
         List<Note> noteList = noteRepository.findAll();
-        List<NoteDTO> notes = new ArrayList<>();
-
-        noteList.forEach(note -> {
-            NoteDTO noteDTO = modelMapper.map(note, NoteDTO.class);
-            notes.add(noteDTO);
-        });
-
-        return notes;
+        return getNoteDTOListFrom(noteList);
     }
 
-    public NoteDTO create() {
-        return new NoteDTO();
+    public NoteDTO create(NoteDTO note) {
+        Note newNote = noteRepository.save(modelMapper.map(note, Note.class));
+        return modelMapper.map(newNote, NoteDTO.class);
     }
 
     public NoteDTO edit(Long id) {
@@ -51,6 +45,17 @@ public class NoteService {
 
     public NoteDTO getArchived() {
         return new NoteDTO();
+    }
+
+    private List<NoteDTO> getNoteDTOListFrom(List<Note> noteList) {
+        List<NoteDTO> notes = new ArrayList<>();
+
+        noteList.forEach(note -> {
+            NoteDTO noteDTO = modelMapper.map(note, NoteDTO.class);
+            notes.add(noteDTO);
+        });
+
+        return notes;
     }
 
 }

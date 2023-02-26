@@ -1,26 +1,16 @@
 package com.pala.NotesAppSpringBoot.dto;
 
 public class NoteDTO {
-    private Long id;
     private String title;
     private String content;
     private Boolean isArchived;
 
     public NoteDTO() {}
 
-    public NoteDTO(Long id, String title, String content, Boolean isArchived) {
-        this.id = id;
+    public NoteDTO(String title, String content, Boolean isArchived) {
         this.title = title;
         this.content = content;
         this.isArchived = isArchived;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
