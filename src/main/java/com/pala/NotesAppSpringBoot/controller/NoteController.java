@@ -34,7 +34,7 @@ public class NoteController {
 
     @PatchMapping("/edit/{id}")
     public ResponseEntity<NoteDTO> edit(@PathVariable Long id, @RequestBody NoteDTO note) {
-        NoteDTO response = noteService.edit(id);
+        NoteDTO response = noteService.edit(id, note);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

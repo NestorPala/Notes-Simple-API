@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -27,8 +28,20 @@ public class NoteService {
         return modelMapper.map(newNote, NoteDTO.class);
     }
 
-    public NoteDTO edit(Long id) {
-        return new NoteDTO();
+    public NoteDTO edit(Long id, NoteDTO note) {
+        Optional<Note> _storedNote = noteRepository.findById(id);
+        if(_storedNote.isEmpty()) {
+            throw new RuntimeException("Note not found");
+        }
+        Note storedNote = _storedNote.get();
+        if (note.getTitle() != null) {
+            storedNote.setTitle(note.getTitle());
+        }
+        if (note.getContent() != null) {
+            storedNote.setContent(note.getContent());
+        }
+        noteRepository.save(storedNote);
+        return modelMapper.map(storedNote, NoteDTO.class);
     }
 
     public NoteDTO delete(Long id) {
@@ -57,5 +70,4 @@ public class NoteService {
 
         return notes;
     }
-
 }
