@@ -24,6 +24,7 @@ public class NoteService {
     }
 
     public NoteDTO create(NoteDTO note) {
+        note.setArchived(false);
         Note newNote = noteRepository.save(modelMapper.map(note, Note.class));
         return modelMapper.map(newNote, NoteDTO.class);
     }
