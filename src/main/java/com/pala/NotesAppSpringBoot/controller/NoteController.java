@@ -1,36 +1,64 @@
 package com.pala.NotesAppSpringBoot.controller;
 
+import com.pala.NotesAppSpringBoot.DTO.NoteDTO;
+import com.pala.NotesAppSpringBoot.service.NoteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/notes")
 public class NoteController {
-    @GetMapping
-    public String index() {
-        return "index";
+
+    private NoteService noteService;
+
+    @Autowired
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
     }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<NoteDTO>> index() {
+        List<NoteDTO> response = noteService.getAll();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PostMapping("/create")
-    public String create() {
-        return "create";
+    public ResponseEntity<NoteDTO> create() {
+        NoteDTO response = noteService.create();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @PatchMapping("/edit/{id}")
-    public String edit(@PathVariable Long id) {
-        return "edit";
+    public ResponseEntity<NoteDTO> edit(@PathVariable Long id, @RequestBody NoteDTO note) {
+        NoteDTO response = noteService.edit(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        return "delete";
+    public ResponseEntity<NoteDTO> delete(@PathVariable Long id) {
+        NoteDTO response = noteService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PatchMapping("/archive/{id}")
-    public String archive(@PathVariable Long id) {
-        return "archive";
+    public ResponseEntity<NoteDTO> archive(@PathVariable Long id) {
+        NoteDTO response = noteService.archive(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @PatchMapping("/unarchive/{id}")
-    public String unarchive(@PathVariable Long id) {
-        return "unarchive";
+    public ResponseEntity<NoteDTO> unarchive(@PathVariable Long id) {
+        NoteDTO response = noteService.unarchive(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @GetMapping("/archived")
-    public String archived() {
-        return "archived";
+    public ResponseEntity<NoteDTO> archived() {
+        NoteDTO response = noteService.getArchived();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
