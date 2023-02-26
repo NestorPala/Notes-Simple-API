@@ -39,9 +39,9 @@ public class NoteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<NoteDTO> delete(@PathVariable Long id) {
-        noteService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        String response = noteService.delete(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("/archive/{id}")

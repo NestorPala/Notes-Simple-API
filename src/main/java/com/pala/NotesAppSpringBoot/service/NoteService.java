@@ -44,8 +44,13 @@ public class NoteService {
         return modelMapper.map(storedNote, NoteDTO.class);
     }
 
-    public NoteDTO delete(Long id) {
-        return new NoteDTO();
+    public String delete(Long id) {
+        Optional<Note> _storedNote = noteRepository.findById(id);
+        if(_storedNote.isEmpty()) {
+            throw new RuntimeException("Note not found");
+        }
+        noteRepository.deleteById(id);
+        return "Note deleted successfully!";
     }
 
     public NoteDTO archive(Long id) {
