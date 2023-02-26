@@ -1,14 +1,32 @@
 package com.pala.NotesAppSpringBoot.service;
 
-import com.pala.NotesAppSpringBoot.DTO.NoteDTO;
+import com.pala.NotesAppSpringBoot.domain.Note;
+import com.pala.NotesAppSpringBoot.dto.NoteDTO;
+import com.pala.NotesAppSpringBoot.repository.NoteRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class NoteService {
+
+    @Autowired
+    private NoteRepository noteRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
+
     public List<NoteDTO> getAll() {
-        return List.of(new NoteDTO(1L, "Lorem Ipsum", "ABC", false));
+        List<Note> noteList = noteRepository.findAll();
+        List<NoteDTO> notes = new ArrayList<>();
+
+        noteList.forEach(note -> {
+            NoteDTO noteDTO = modelMapper.map(note, NoteDTO.class);
+            notes.add(noteDTO);
+        });
+
+        return notes;
     }
 
     public NoteDTO create() {

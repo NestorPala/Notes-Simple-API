@@ -1,6 +1,6 @@
 package com.pala.NotesAppSpringBoot.controller;
 
-import com.pala.NotesAppSpringBoot.DTO.NoteDTO;
+import com.pala.NotesAppSpringBoot.dto.NoteDTO;
 import com.pala.NotesAppSpringBoot.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class NoteController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<NoteDTO> create() {
+    public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO note) {
         NoteDTO response = noteService.create();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -40,7 +40,7 @@ public class NoteController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<NoteDTO> delete(@PathVariable Long id) {
-        NoteDTO response = noteService.delete(id);
+        noteService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

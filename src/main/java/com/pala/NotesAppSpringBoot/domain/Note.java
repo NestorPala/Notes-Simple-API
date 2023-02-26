@@ -1,18 +1,37 @@
-package com.pala.NotesAppSpringBoot.DTO;
+package com.pala.NotesAppSpringBoot.domain;
+import jakarta.persistence.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
-public class NoteDTO {
+import java.util.Date;
+
+@Entity
+@Table(name = "notes")
+public class Note {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "is_archived")
     private Boolean isArchived;
 
-    public NoteDTO() {}
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
 
-    public NoteDTO(Long id, String title, String content, Boolean isArchived) {
+    protected Note() {}
+
+    public Note(Long id, String title, String content, Boolean isArchived) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.isArchived = isArchived;
+        this.updatedAt = null;
     }
 
     public Long getId() {
