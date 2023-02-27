@@ -5,9 +5,11 @@ import com.pala.NotesAppSpringBoot.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/notes")
@@ -23,6 +25,16 @@ public class NoteController {
     @GetMapping("/get")
     public ResponseEntity<List<NoteDTO>> index() {
         List<NoteDTO> response = noteService.getAll();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getBy")
+    public ResponseEntity<List<NoteDTO>> getByFilters(
+            @RequestParam(defaultValue = " ") String title,
+            @RequestParam(defaultValue = " ") String content,
+            @RequestParam(defaultValue = "title") String sort
+    ) {
+        List<NoteDTO> response = noteService.getByFilters(title, content, sort);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

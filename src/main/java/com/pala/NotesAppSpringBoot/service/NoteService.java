@@ -7,9 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Predicate;
+
 
 @Service
 public class NoteService {
@@ -21,6 +21,32 @@ public class NoteService {
     public List<NoteDTO> getAll() {
         List<Note> noteList = noteRepository.findAll();
         return getNoteDTOListFrom(noteList);
+    }
+
+    public List<NoteDTO> getByFilters(String title, String content, String sort) {
+        List<Note> notes = switch (sort) {
+            case "title" -> noteRepository.findAllByOrderByTitleAsc();
+            case "-title" -> noteRepository.findAllByOrderByTitleDesc();
+            case "content" -> noteRepository.findAllByOrderByContentAsc();
+            case "-content" -> noteRepository.findAllByOrderByContentDesc();
+            default -> noteRepository.findAll();
+        };
+
+        Predicate<Note> noteFilter;
+
+        if (!title.equals(" ") && !content.equals(" ")) {
+            noteFilter = note -> note.getTitle().equals(title) && note.getContent().equals(content);
+        } else if (!title.equals(" ")) {
+            noteFilter = note -> note.getTitle().equals(title);
+        } else if (!content.equals(" ")) {
+            noteFilter = note -> note.getContent().equals(content);
+        } else {
+            noteFilter = note -> true;
+        }
+
+        notes = notes.stream().filter(noteFilter).toList();
+
+        return getNoteDTOListFrom(notes);
     }
 
     public NoteDTO create(NoteDTO note) {
@@ -71,13 +97,14 @@ public class NoteService {
     }
 
     private List<NoteDTO> getNoteDTOListFrom(List<Note> noteList) {
+        if (noteList == null) {
+            return Collections.emptyList();
+        }
         List<NoteDTO> notes = new ArrayList<>();
-
         noteList.forEach(note -> {
             NoteDTO noteDTO = modelMapper.map(note, NoteDTO.class);
             notes.add(noteDTO);
         });
-
         return notes;
     }
 
