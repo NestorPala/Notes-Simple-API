@@ -28,6 +28,12 @@ public class NoteController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<NoteDTO> getById(@PathVariable Long id) {
+        NoteDTO response = noteService.getById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/getBy")
     public ResponseEntity<List<NoteDTO>> getByFilters(
             @RequestParam(defaultValue = " ") String title,

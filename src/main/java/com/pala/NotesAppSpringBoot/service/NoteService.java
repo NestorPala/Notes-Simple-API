@@ -23,6 +23,15 @@ public class NoteService {
         return getNoteDTOListFrom(noteList);
     }
 
+    public NoteDTO getById(Long id) {
+        Optional<Note> storedNote = noteRepository.findById(id);
+        if(storedNote.isEmpty()) {
+            throw new RuntimeException("Note not found");
+        }
+        Note note = storedNote.get();
+        return modelMapper.map(note, NoteDTO.class);
+    }
+
     public List<NoteDTO> getByFilters(String title, String content, String sort) {
         List<Note> notes = switch (sort) {
             case "title" -> noteRepository.findAllByOrderByTitleAsc();
