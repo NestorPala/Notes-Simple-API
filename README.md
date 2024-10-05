@@ -1,4 +1,4 @@
-# Notes-App-Spring-Boot
+# Notes-Simple-API
 
 ---
 
